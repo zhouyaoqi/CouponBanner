@@ -1,10 +1,25 @@
 import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import people from '@/image/1440/people.png';
-import { data } from '../../mock/index';
+import { dataEn, dataCh } from '../../mock/index';
 import { countDown } from '@/tool/index';
+import { propsType, dataType } from '../type';
 
-export default function CouponBanner1440() {
+export default function CouponBanner1440(props: propsType) {
+  const { lang } = props;
+  const [data, setData] = useState<dataType>({
+    text: '',
+    discount: '',
+    unit: '',
+    welCome: '',
+    items: '',
+    order: '',
+    btntext: '',
+    items1: '',
+    order1: '',
+    btntext1: '',
+    cor: '',
+  });
   const [times, setTimes] = useState<object>({ h: '', m: '', s: '' });
   useEffect(() => {
     var inputTime: any = '';
@@ -23,6 +38,13 @@ export default function CouponBanner1440() {
       timer && clearTimeout(timer);
     };
   }, []);
+  useEffect(() => {
+    if (lang == 'en') {
+      setData(dataEn);
+    } else {
+      setData(dataCh);
+    }
+  }, [lang]);
   return (
     <div className={styles.couponbanner_box}>
       <img src={people} className={styles.img} />
